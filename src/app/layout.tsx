@@ -1,7 +1,8 @@
 import StyledComponentsRegistry from '@/lib/registry'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { GlobalStyles } from './styles.global'
+import { DivContainerSC, GlobalStyles, MainSC } from './styles.global'
+import Header from '@/components/header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,12 +18,15 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='ru'>
-			<body className={inter.className}>
-				<StyledComponentsRegistry>
-					<GlobalStyles />
-					{children}
-				</StyledComponentsRegistry>
-			</body>
+			<StyledComponentsRegistry>
+				<GlobalStyles />
+				<body className={inter.className}>
+					<Header />
+					<MainSC>
+						<DivContainerSC>{children}</DivContainerSC>
+					</MainSC>
+				</body>
+			</StyledComponentsRegistry>
 		</html>
 	)
 }
