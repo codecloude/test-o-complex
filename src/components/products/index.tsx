@@ -1,24 +1,23 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { DivProductsBoxSC, SectionProductsSC } from './styles.products'
 import Product from './product_item'
-import { IPageOfProducts, IProduct } from '@/types'
+import { getProducts } from '@/api'
 
-interface Props {
-	sliceProducts: IPageOfProducts
-}
 
-const Products = (props: Props) => {
-	const { sliceProducts } = props
-	const { products } = sliceProducts
+const Products = async () => {
+	const pageOfProducts = await getProducts(1)
+	
 	return (
 		<>
 			<SectionProductsSC>
 				<h1>Товары:</h1>
-				<DivProductsBoxSC>
-					{products.map((product) => (
-						<Product product={product} key={product.id} />
-					))}
-				</DivProductsBoxSC>
+				{pageOfProducts.products.length > 0 && (
+					<DivProductsBoxSC>
+						{pageOfProducts.products.map((product, index) => (
+							<Product product={product} key={`${product.id}-${index}`} />
+						))}
+					</DivProductsBoxSC>
+				)}
 			</SectionProductsSC>
 		</>
 	)

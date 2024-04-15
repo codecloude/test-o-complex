@@ -2,13 +2,11 @@ import React from 'react'
 import { DivReviewsBoxSC, SectionReviewsSC } from './styles.reviews'
 import Review from './review_item'
 import { IReview } from '@/types'
+import { getReviews } from '@/api'
 
-interface Props {
-	reviews: IReview[]
-}
-
-const Reviews = (props: Props) => {
-	const { reviews } = props
+const Reviews = async () => {
+	const reviews = await getReviews()
+	
 	return (
 		<>
 			<SectionReviewsSC>
